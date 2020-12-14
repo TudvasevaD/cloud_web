@@ -22,3 +22,41 @@ Jedis jedis = new Jedis("localhost", 6379);
 Для проверки запускаем два приложения на портах 8081 и 8082, обновляем страницы на обоих приложениях счетчик увеличивается:
 
 ![](lab2/1.png)
+
+# 4 лабораторная рабока. Реализация партиционирования с использованием Postgres
+
+В ходе данной работы была установлена СУБД Postgres и создана БД mydb.
+
+Далее была создана таблица measurement:
+
+CREATE TABLE measurement (
+    city_id         int not null,
+    logdate         date not null,
+    peaktemp        int,
+    unitsales       int
+) PARTITION BY RANGE (logdate);
+
+После чего были созданы партиции по месяцам: октябрь, ноябрь и декабрь:
+
+CREATE TABLE measurement_y2020m10 PARTITION OF measurement
+    FOR VALUES FROM ('2020-10-01') TO ('2020-11-01');
+
+CREATE TABLE measurement_y2020m11 PARTITION OF measurement
+    FOR VALUES FROM ('2020-11-01') TO ('2020-12-01');
+
+CREATE TABLE measurement_y2020m12 PARTITION OF measurement
+    FOR VALUES FROM ('2020-12-01') TO ('2021-01-01');
+
+Таблица были заполнены данными, по запросы у на выборку пришел следующий ответ:
+
+![](lab4/2.png)
+
+Если сделать запрос на выборку данных только из партиции за декабрь получим следующий результат: 
+
+![](lab4/3.png)
+
+Запрос на выборку данных с температурой от +3 до -5:
+
+SELECT * FROM measurement WHERE (peaktemp >= -5 AND peaktemp < +3);
+
+![](lab4/4.png)
