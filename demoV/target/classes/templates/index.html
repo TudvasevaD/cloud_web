@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HelloSpringLeaf</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
+<body>
+<h1>Hello Spring Leaf!</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Buckets:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bucket : ${buckets}">
+        <td th:text="${bucket}"></td>
+    </tr>
+    <tr>
+        <th>Files in bucket <span th:text="${nameBucket}"></span>:</th>
+    </tr>
+
+    <tr th:each="image : ${images}">
+        <td th:text="${image}"></td>
+    </tr>
+
+    <tr>
+        <th>Image for Vision:</th>
+    </tr>
+    <tr>
+        <td  align="center"><img src="../static/images/test.jpg" th:src="@{images/test.jpg}" wdith="255" height="255" alt="lorem"/></td>
+    </tr>
+
+    <tr>
+        <th>Response from Vision: </th>
+    </tr>
+
+    <tr th:each="resp : ${responses}">
+        <td th:text="${resp}"></td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+
+</body>
+</html>
