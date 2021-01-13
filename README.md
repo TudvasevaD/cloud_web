@@ -91,6 +91,6 @@ SELECT * FROM measurement WHERE (peaktemp >= -5 AND peaktemp < +3);
 
 На рисунке представлен веб-интерфейс kubernetes, доступнуй по команде "minicube dashboard"
 
-![](Kebernetes/kubernetes dashboard.png)
+![](Kubernetes/kubernetes dashboard.png)
 
 Так же в кластере были загружены поды nginx с помощью yml-файла, представленного в папке Kubernetes.
